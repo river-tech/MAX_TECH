@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAX TECH | Giải pháp công nghệ cao cấp</title>
+    <style>
+        /* ==========================================================================
+           1. GLOBAL DESIGN SYSTEM
+           ========================================================================== */
+        :root {
+            --bg-deep: #070d16;
+            --bg-accent: #0b1630;
+            --accent: #4aa3ff;
+            --accent-glow: rgba(74, 163, 255, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --text-dim: #718096;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(14px);
+            --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s var(--ease-premium);
+            --container-max: 1200px;
+            --nav-height: 80px;
+        }
+
+        /* Continuous Background Animations */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 20px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes contact-attention {
+            0% { box-shadow: 0 0 0 0 rgba(74, 163, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(74, 163, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 163, 255, 0); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .btn-contact-loop {
+            animation: contact-attention 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-contact-loop::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        .light-blob {
+            animation: pulse-glow 8s infinite ease-in-out;
+        }
+        #blob-1 { animation-delay: 0s; }
+        #blob-2 { animation-delay: -4s; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, system-ui, sans-serif; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-deep);
+            background-image: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-accent) 100%);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Noise & Blobs */
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.02; pointer-events: none; z-index: 9999;
+        }
+
+        .container { max-width: var(--container-max); margin: 0 auto; padding: 0 2rem; }
+        .section-padding { padding: 80px 0; }
+        .title-group { text-align: center; margin-bottom: 3rem; }
+        .title-group h2 {
+            font-size: 2.8rem; margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Components */
+        .btn { padding: 0.9rem 2rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: none; font-size: 0.95rem; }
+        .btn-primary { background: var(--accent); color: white; box-shadow: 0 8px 20px rgba(74, 163, 255, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(74, 163, 255, 0.5); }
+        .btn-secondary { background: var(--glass-bg); color: white; border: 1px solid var(--glass-border); backdrop-filter: var(--glass-blur); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-3px); }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s var(--ease-premium); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Navbar */
+        nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); display: flex; align-items: center; z-index: 1000; transition: var(--transition); }
+        nav.scrolled { height: 70px; background: rgba(7, 13, 22, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: white; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero { padding-top: calc(var(--nav-height) + 80px); display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+        .hero h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero p { font-size: 1.15rem; margin-bottom: 2.5rem; max-width: 550px; }
+        .hero-actions { display: flex; gap: 1.5rem; margin-bottom: 4rem; }
+        .hero-stats { display: flex; gap: 2.5rem; }
+        .stat-item { padding: 1.5rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; backdrop-filter: var(--glass-blur); min-width: 160px; }
+        .stat-val { display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); }
+        .hero-visual svg g, .hero-visual svg rect, .hero-visual svg circle {
+            transition: transform 0.5s ease;
+        }
+
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-card {
+            animation: float-subtle 4s infinite ease-in-out;
+        }
+
+        .floating-phone {
+            animation: float-subtle 5s infinite ease-in-out reverse;
+        }
+
+        /* Services */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .service-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 3.5rem 2.5rem; border-radius: 30px; backdrop-filter: var(--glass-blur); transition: var(--transition); position: relative; overflow: hidden; }
+        .service-card:hover { transform: translateY(-12px); border-color: rgba(74, 163, 255, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .icon-box { 
+            width: 64px; 
+            height: 64px; 
+            background: linear-gradient(135deg, rgba(74, 163, 255, 0.2), rgba(74, 163, 255, 0.05)); 
+            border-radius: 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 2rem; 
+            color: white; 
+            box-shadow: 0 8px 16px rgba(74, 163, 255, 0.15);
+            border: 1px solid rgba(74, 163, 255, 0.3);
+        }
+        .tech-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .pill { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; color: var(--accent); }
+
+        /* Tech Stack Grid */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .tech-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem 2rem;
+            border-radius: 24px;
+            backdrop-filter: var(--glass-blur);
+            transition: var(--transition);
+        }
+        .tech-card:hover {
+            border-color: rgba(74, 163, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 30px rgba(74, 163, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        .tech-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+        .accent-line {
+            width: 3px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent);
+        }
+        .tech-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .tech-tag:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .active-tag {
+            background: var(--accent) !important;
+            color: white !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        @media (max-width: 1100px) {
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Why Us */
+        .why-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+        .why-card { 
+            position: relative; 
+            padding: 1.5rem 1rem 1.5rem 3rem; 
+            transition: var(--transition);
+        }
+        .why-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+        }
+        .why-card::after { content: ""; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: linear-gradient(to bottom, var(--accent), transparent); }
+        .why-watermark { 
+            position: absolute; 
+            right: 10px; 
+            top: -10px; 
+            font-size: 10rem; 
+            font-weight: 900; 
+            color: rgba(255, 255, 255, 0.08); 
+            z-index: -1; 
+            user-select: none;
+            line-height: 1;
+        }
+
+        /* Projects */
+        .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .project-card { 
+            background: var(--glass-bg); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 20px; 
+            overflow: hidden; 
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .project-thumb { 
+            height: 180px; 
+            background: #0f1a2e; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        .project-thumb svg { width: 90%; height: 90%; }
+        
+        .project-body { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-body h3 { font-size: 1.3rem; margin-bottom: 0.75rem; color: white; line-height: 1.3; }
+        .project-body p { font-size: 0.9rem; margin-bottom: 1.2rem; line-height: 1.5; opacity: 0.8; }
+        
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }
+        .project-tag {
+            background: rgba(74, 163, 255, 0.08);
+            border: 1px solid rgba(74, 163, 255, 0.15);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .project-result {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+        }
+        .project-result svg { width: 18px; height: 18px; color: #48bb78; }
+
+        @media (max-width: 1100px) {
+            .project-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .project-grid { grid-template-columns: 1fr; }
+        }
+
+        /* CTA & Footer */
+        .cta-wrap { background: linear-gradient(135deg, rgba(74, 163, 255, 0.1) 0%, transparent 100%); border: 1px solid var(--glass-border); border-radius: 50px; padding: 6rem 4rem; text-align: center; position: relative; overflow: hidden; }
+        .cta-wrap h2 { margin-bottom: 1.5rem; }
+        .cta-wrap p { margin-bottom: 3rem; }
+        .cta-btn { margin-bottom: 4rem; }
+        .contact-info { display: flex; justify-content: center; gap: 3rem; }
+        .contact-item { display: flex; align-items: center; gap: 12px; color: var(--text-muted); }
+        .contact-item svg { color: var(--accent); width: 24px; height: 24px; }
+        footer { 
+            padding: 80px 0 40px; 
+            border-top: 1px solid var(--glass-border); 
+            margin-top: 100px;
+            background: linear-gradient(to bottom, rgba(7, 13, 22, 0.5), rgba(11, 22, 48, 0.8));
+            backdrop-filter: var(--glass-blur);
+        }
+        .footer-main { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 5rem; }
+        .footer-col h4 { margin-bottom: 1.8rem; color: white; }
+        .footer-list { list-style: none; }
+        .footer-list li { margin-bottom: 0.8rem; }
+        .footer-list a { text-decoration: none; color: var(--text-muted); transition: var(--transition); font-size: 0.9rem; }
+        .footer-list a:hover { color: var(--accent); }
+        .footer-bottom { padding-top: 2.5rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; color: var(--text-dim); font-size: 0.85rem; }
+        .socials { display: flex; gap: 1rem; }
+        .social-link { width: 40px; height: 40px; border-radius: 50%; background: var(--glass-bg); display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: var(--transition); }
+        .social-link:hover { background: var(--accent); color: white; transform: translateY(-3px); }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-visual { order: -1; max-width: 500px; margin: 0 auto; }
+            .services-grid, .project-grid, .why-columns { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            :root { --nav-height: 60px; }
+            .container { padding: 0 1.25rem; }
+            .section-padding { padding: 30px 0; }
+            .title-group { margin-bottom: 2rem; }
+            .title-group h2 { font-size: 1.8rem; }
+            .nav-links { display: none; }
+            .services-grid, .project-grid, .why-columns { grid-template-columns: 1fr; gap: 1.5rem; }
+            
+            .hero { padding-top: 100px; gap: 2rem; }
+            .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+            .hero p { font-size: 1rem; margin-bottom: 1.5rem; }
+            .hero-actions { flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+            .hero-actions .btn { width: 100%; justify-content: center; }
+            .hero-stats { gap: 0.75rem; }
+            .stat-item { flex: 1; min-width: 0; padding: 0.75rem; border-radius: 12px; }
+            .stat-val { font-size: 1.4rem; }
+            .stat-label { font-size: 0.7rem; }
+
+            .tech-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .tech-card { padding: 1.5rem; border-radius: 16px; }
+            .tech-card-header { margin-bottom: 1rem; }
+            .tech-tag { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+
+            .service-card { padding: 2rem 1.5rem; border-radius: 20px; }
+            .service-card h3 { font-size: 1.3rem; }
+            .service-card p { margin-bottom: 1.5rem; }
+
+            .why-card { padding-left: 1.5rem; }
+            .why-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+            .why-watermark { font-size: 6rem; top: 0; right: 0; }
+
+            .project-card { border-radius: 16px; }
+            .project-thumb { height: 160px; padding: 0.75rem; }
+            .project-body { padding: 1.25rem; }
+            .project-body h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+            .project-body p { margin-bottom: 1rem; font-size: 0.85rem; }
+            .project-tags { margin-bottom: 1rem; gap: 0.4rem; }
+            .project-result { padding: 0.5rem 0.8rem; font-size: 0.75rem; }
+
+            .cta-wrap { padding: 3rem 1.5rem; border-radius: 24px; }
+            .cta-wrap h2 { font-size: 1.8rem; }
+            .cta-wrap p { font-size: 1rem; margin-bottom: 2rem; }
+            .cta-btn { margin-bottom: 2.5rem; width: 100%; }
+            .contact-info { flex-direction: column; gap: 0.75rem; }
+            .contact-item { font-size: 0.95rem; }
+
+            .footer-main { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+            .footer-main .footer-col:first-child { grid-column: span 2; margin-bottom: 1rem; }
+            .footer-col h4 { margin-bottom: 1rem; font-size: 1rem; }
+            .footer-list li { margin-bottom: 0.5rem; }
+            
+            .scroll-top-btn { bottom: 20px; right: 20px; width: 44px; height: 44px; border-radius: 10px; }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(74, 163, 255, 0.3);
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-5px);
+            background: #60b0ff;
+        }
+
+        .scroll-top-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="light-blob" id="blob-1"></div>
+    <div class="light-blob" id="blob-2"></div>
+
+    <!-- 1. NAVBAR -->
+    <nav id="main-nav">
+        <div class="container">
+            <a href="#" class="logo">MAX<span>TECH</span></a>
+            <ul class="nav-links">
+                <li><a href="#services">Dịch vụ</a></li>
+                <li><a href="#tech">Công nghệ</a></li>
+                <li><a href="#about">Về chúng tôi</a></li>
+                <li><a href="#projects">Dự án</a></li>
+            </ul>
+            <a href="#contact" class="btn btn-primary btn-contact-loop">Liên hệ</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 2. HERO SECTION -->
+        <header class="container hero">
+            <div class="hero-content reveal">
+                <h1>Xây dựng hệ thống<br><span style="color: var(--accent)">công nghệ</span> tin cậy</h1>
+                <p>Chúng tôi đồng hành cùng doanh nghiệp kiến tạo những giải pháp phần mềm hiện đại, bảo mật và có khả năng mở rộng không giới hạn.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Trao đổi dự án</a>
+                    <a href="#projects" class="btn btn-secondary">Xem case study</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item"><span class="stat-val">5+</span><span class="stat-label">Năm kinh nghiệm</span></div>
+                    <div class="stat-item"><span class="stat-val">100+</span><span class="stat-label">Dự án đã xong</span></div>
+                </div>
+            </div>
+        <div class="hero-visual reveal">
+            <!-- Recreated Tech Illustration from Image -->
+            <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Glows -->
+                <circle cx="400" cy="150" r="100" fill="url(#hero-glow-1)" opacity="0.4" />
+                <circle cx="100" cy="400" r="80" fill="url(#hero-glow-2)" opacity="0.3" />
+                
+                <!-- Background Symbol -->
+                <g opacity="0.1" transform="translate(320, 350) scale(1.5)">
+                    <path d="M20 10L10 20L20 30" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M30 10L40 20L30 30" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M28 8L22 32" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </g>
+
+                <!-- Connection Lines -->
+                <path d="M120 300 Q 250 250 400 150" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 8" opacity="0.4" />
+                <path d="M150 350 Q 300 400 450 300" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 8" opacity="0.2" />
+
+                <!-- Laptop -->
+                <!-- Base -->
+                <path d="M110 340 L390 340 L420 370 L80 370 Z" fill="url(#laptop-base)" />
+                <rect x="235" y="345" width="30" height="4" rx="2" fill="var(--accent)" opacity="0.5" />
+                
+                <!-- Screen -->
+                <rect x="130" y="140" width="240" height="180" rx="12" fill="#0f1a2e" stroke="#1e2d4d" stroke-width="4" />
+                <rect x="130" y="140" width="240" height="25" rx="12 12 0 0" fill="#1e2d4d" />
+                <!-- Screen Buttons -->
+                <circle cx="145" cy="152" r="3" fill="#ff5f56" />
+                <circle cx="155" cy="152" r="3" fill="#ffbd2e" />
+                <circle cx="165" cy="152" r="3" fill="#27c93f" />
+                
+                <!-- Screen Content (Code Lines) -->
+                <rect x="150" y="180" width="120" height="6" rx="3" fill="var(--text-dim)" opacity="0.4" />
+                <rect x="150" y="195" width="180" height="6" rx="3" fill="var(--text-dim)" opacity="0.4" />
+                <rect x="150" y="210" width="100" height="6" rx="3" fill="var(--text-dim)" opacity="0.4" />
+                <rect x="150" y="225" width="150" height="6" rx="3" fill="var(--text-dim)" opacity="0.4" />
+                <rect x="150" y="240" width="80" height="6" rx="3" fill="var(--accent)" opacity="0.6" />
+                <rect x="150" y="255" width="140" height="6" rx="3" fill="var(--text-dim)" opacity="0.4" />
+
+                <!-- Mobile Phone -->
+                <g class="floating-phone">
+                    <rect x="65" y="190" width="70" height="130" rx="12" fill="#0f1a2e" stroke="#1e2d4d" stroke-width="3" />
+                    <rect x="75" y="210" width="50" height="4" rx="2" fill="var(--text-dim)" opacity="0.4" />
+                    <rect x="75" y="225" width="35" height="4" rx="2" fill="var(--text-dim)" opacity="0.4" />
+                    <rect x="75" y="240" width="45" height="4" rx="2" fill="var(--text-dim)" opacity="0.4" />
+                    <rect x="80" y="270" width="40" height="15" rx="4" fill="var(--accent)" opacity="0.6" />
+                    <circle cx="100" cy="310" r="4" fill="#1e2d4d" />
+                </g>
+
+                <!-- Floating Card -->
+                <g transform="translate(300, 70)" class="floating-card">
+                    <rect width="120" height="80" rx="12" fill="var(--glass-bg)" stroke="var(--glass-border)" stroke-width="1" />
+                    <circle cx="35" cy="35" r="15" fill="var(--accent)" opacity="0.8" />
+                    <rect x="60" y="25" width="40" height="6" rx="3" fill="white" opacity="0.8" />
+                    <rect x="60" y="40" width="25" height="6" rx="3" fill="white" opacity="0.4" />
+                    <rect x="20" y="60" width="80" height="12" rx="6" fill="var(--accent)" opacity="0.6" />
+                </g>
+
+                <!-- Glowing Dots -->
+                <g>
+                    <circle cx="240" cy="225" r="12" fill="var(--accent)" opacity="0.6" />
+                    <circle cx="240" cy="225" r="6" fill="white" />
+                    <circle cx="240" cy="225" r="20" fill="var(--accent)" opacity="0.1">
+                        <animate attributeName="r" values="15;25;15" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <g>
+                    <circle cx="240" cy="275" r="12" fill="var(--accent)" opacity="0.6" />
+                    <circle cx="240" cy="275" r="6" fill="white" />
+                    <circle cx="240" cy="275" r="20" fill="var(--accent)" opacity="0.1">
+                        <animate attributeName="r" values="15;25;15" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+
+                <!-- Definitions -->
+                <defs>
+                    <radialGradient id="hero-glow-1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 150) rotate(90) scale(100)">
+                        <stop stop-color="var(--accent)" />
+                        <stop offset="1" stop-color="var(--accent)" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="hero-glow-2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(100 400) rotate(90) scale(80)">
+                        <stop stop-color="var(--accent)" />
+                        <stop offset="1" stop-color="var(--accent)" stop-opacity="0" />
+                    </radialGradient>
+                    <linearGradient id="laptop-base" x1="80" y1="355" x2="420" y2="355" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#1e2d4d" />
+                        <stop offset="0.5" stop-color="var(--accent)" />
+                        <stop offset="1" stop-color="#1e2d4d" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        </header>
+
+        <!-- 3. SERVICES SECTION -->
+        <section id="services" class="section-padding">
+            <div class="container">
+                <div class="title-group reveal">
+                    <h2>Dịch vụ</h2>
+                    <p>Giải pháp công nghệ từ ý tưởng đến vận hành thực tế</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Web & Mobile Application -->
+                    <div class="service-card reveal">
+                        <div class="icon-box">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                        <h3>Web & Mobile Application</h3>
+                        <p>Phát triển ứng dụng web và mobile với React, Next.js, React Native. Giao diện responsive, hiệu năng cao, trải nghiệm người dùng mượt mà.</p>
+                        <div class="tech-pills">
+                            <span class="pill">React</span>
+                            <span class="pill">Next.js</span>
+                            <span class="pill">React Native</span>
+                            <span class="pill">TypeScript</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend & API Development -->
+                    <div class="service-card reveal">
+                        <div class="icon-box">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        </div>
+                        <h3>Backend & API Development</h3>
+                        <p>Xây dựng API RESTful và GraphQL với Node.js, Python. Kiến trúc microservices, xử lý dữ liệu lớn, bảo mật theo chuẩn quốc tế.</p>
+                        <div class="tech-pills">
+                            <span class="pill">Node.js</span>
+                            <span class="pill">Python</span>
+                            <span class="pill">PostgreSQL</span>
+                            <span class="pill">MongoDB</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Infrastructure & DevOps -->
+                    <div class="service-card reveal">
+                        <div class="icon-box">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                        </div>
+                        <h3>Cloud Infrastructure & DevOps</h3>
+                        <p>Triển khai và quản lý hạ tầng trên AWS, Google Cloud. CI/CD automation, monitoring, scaling tự động để hệ thống chạy ổn định 24/7.</p>
+                        <div class="tech-pills">
+                            <span class="pill">AWS</span>
+                            <span class="pill">Docker</span>
+                            <span class="pill">Kubernetes</span>
+                            <span class="pill">Terraform</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TECH STACK -->
+        <section id="tech" class="section-padding">
+            <div class="container">
+                <div class="title-group reveal">
+                    <h2>Công nghệ chúng tôi sử dụng</h2>
+                    <p>Lựa chọn công nghệ dựa trên yêu cầu thực tế của dự án, không theo trend</p>
+                </div>
+                
+                <div class="tech-grid reveal">
+                    <!-- Frontend -->
+                    <div class="tech-card">
+                        <div class="tech-card-header">
+                            <span class="accent-line"></span>
+                            <h3>Frontend</h3>
+                        </div>
+                        <div class="tech-list">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Tailwind CSS</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend -->
+                    <div class="tech-card">
+                        <div class="tech-card-header">
+                            <span class="accent-line"></span>
+                            <h3>Backend</h3>
+                        </div>
+                        <div class="tech-list">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud & DevOps -->
+                    <div class="tech-card">
+                        <div class="tech-card-header">
+                            <span class="accent-line"></span>
+                            <h3>Cloud & DevOps</h3>
+                        </div>
+                        <div class="tech-list">
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">Google Cloud</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">GitHub Actions</span>
+                        </div>
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="tech-card">
+                        <div class="tech-card-header">
+                            <span class="accent-line"></span>
+                            <h3>Mobile</h3>
+                        </div>
+                        <div class="tech-list">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">iOS</span>
+                            <span class="tech-tag">Android</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. WHY US -->
+        <section id="about" class="section-padding">
+            <div class="container">
+                <div class="title-group reveal">
+                    <h2>Tại sao chọn MAX TECH</h2>
+                </div>
+                <div class="why-columns">
+                    <div class="why-card reveal">
+                        <span class="why-watermark">01</span>
+                        <h3>Code quality thực tế</h3>
+                        <p>Viết code sạch, có test coverage, document đầy đủ. Bàn giao source code và hướng dẫn chi tiết để team nội bộ của bạn có thể tiếp quản.</p>
+                    </div>
+                    <div class="why-card reveal">
+                        <span class="why-watermark">02</span>
+                        <h3>Tư vấn kiến trúc rõ ràng</h3>
+                        <p>Giải thích các quyết định kỹ thuật bằng ngôn ngữ dễ hiểu. Đề xuất giải pháp phù hợp với ngân sách và timeline thực tế.</p>
+                    </div>
+                    <div class="why-card reveal">
+                        <span class="why-watermark">03</span>
+                        <h3>Hỗ trợ sau triển khai</h3>
+                        <p>Không biến mất sau khi bàn giao. Hỗ trợ fix bug, scale system và training team của bạn trong thời gian bảo hành.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. PROJECTS -->
+        <section id="projects" class="section-padding">
+            <div class="container">
+                <div class="title-group reveal">
+                    <h2>Dự án tiêu biểu</h2>
+                </div>
+                <div id="project-container" class="project-grid">
+                    <!-- Mock Data will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CONTACT -->
+        <section id="contact" class="container section-padding">
+            <div class="cta-wrap reveal">
+                <h2>Bắt đầu dự án của bạn</h2>
+                <p>Hãy cùng MAX TECH hiện thực hóa giải pháp của bạn ngay hôm nay.</p>
+                <a href="https://www.facebook.com/profile.php?id=61585726120612" target="_blank" class="btn btn-primary cta-btn btn-contact-loop" style="padding: 1.2rem 3rem;">Đặt lịch tư vấn miễn phí</a>
+                <div class="contact-info">
+                    <a href="mailto:maxtechfreelance0101@gmail.com" class="contact-item" style="text-decoration: none;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        maxtechfreelance0101@gmail.com
+                    </a>
+                    <a href="tel:+84935271790" class="contact-item" style="text-decoration: none;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        +84 93 5271790
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 8. FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-col">
+                    <a href="#" class="logo">MAX<span>TECH</span></a>
+                    <p>Đối tác công nghệ tin cậy cho mọi dự án phần mềm và giải pháp số.</p>
+                    <div class="socials" style="margin-top: 1.5rem;">
+                        <a href="https://www.facebook.com/profile.php?id=61585726120612" target="_blank" class="social-link" title="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Dịch vụ</h4>
+                    <ul class="footer-list">
+                        <li><a href="#services">Thiết kế App</a></li>
+                        <li><a href="#services">Web Dev</a></li>
+                        <li><a href="#services">Cloud & DevOps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Liên hệ</h4>
+                    <ul class="footer-list">
+                        <li><a href="mailto:maxtechfreelance0101@gmail.com">maxtechfreelance0101@gmail.com</a></li>
+                        <li><a href="tel:+84935271790">+84 93 5271790</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61585726120612" target="_blank">Facebook Page</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 MAX TECH. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="scroll-top-btn" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <!-- JS LOGIC -->
+    <script>
+        // --- Mock Data for Projects ---
+        // Bạn có thể dễ dàng thêm dự án mới bằng cách thêm một object vào mảng này
+        const PROJECTS_DATA = [
+            {
+                title: "Hệ thống ERP Doanh nghiệp",
+                description: "Giải pháp quản trị nguồn lực toàn diện cho doanh nghiệp sản xuất, tích hợp quản lý kho, nhân sự và kế toán.",
+                tags: ["React", "NestJS", "PostgreSQL", "Docker"],
+                result: "Tối ưu 30% quy trình vận hành",
+                thumb: `
+                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="40" width="300" height="160" rx="10" fill="#1e2d4d" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+                        <rect x="70" y="60" width="260" height="20" rx="4" fill="var(--accent)" opacity="0.2"/>
+                        <rect x="70" y="90" width="120" height="80" rx="4" fill="white" opacity="0.05"/>
+                        <rect x="200" y="90" width="130" height="80" rx="4" fill="white" opacity="0.05"/>
+                        <circle cx="265" cy="130" r="20" stroke="var(--accent)" stroke-width="2" opacity="0.4"/>
+                    </svg>
+                `
+            },
+            {
+                title: "Nền tảng E-commerce B2B",
+                description: "Hệ thống quản lý đơn hàng và kho vận cho doanh nghiệp phân phối với 500+ đại lý trên toàn quốc.",
+                tags: ["Next.js", "Node.js", "PostgreSQL", "AWS"],
+                result: "Xử lý 100K+ đơn hàng/tháng",
+                thumb: `
+                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="20" width="320" height="180" rx="12" fill="#1e2d4d" stroke="#334766" stroke-width="4"/>
+                        <path d="M160 200 L240 200 L260 220 L140 220 Z" fill="#1e2d4d"/>
+                        <rect x="60" y="40" width="80" height="60" rx="4" fill="rgba(74, 163, 255, 0.1)"/>
+                        <rect x="150" y="40" width="190" height="10" rx="2" fill="white" opacity="0.1"/>
+                        <rect x="60" y="110" width="280" height="60" rx="4" fill="rgba(74, 163, 255, 0.05)"/>
+                        <rect x="80" y="130" width="40" height="30" rx="2" fill="var(--accent)" opacity="0.4"/>
+                        <rect x="130" y="130" width="40" height="30" rx="2" fill="var(--accent)" opacity="0.4"/>
+                    </svg>
+                `
+            },
+            {
+                title: "Ứng dụng Fintech",
+                description: "Mobile app quản lý tài chính cá nhân với tích hợp ngân hàng và phân tích chi tiêu thông minh AI-powered.",
+                tags: ["React Native", "Python", "MongoDB", "Docker"],
+                result: "50K+ người dùng hoạt động",
+                thumb: `
+                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(160, 20)">
+                            <rect width="80" height="160" rx="16" fill="#1e2d4d" stroke="#334766" stroke-width="4"/>
+                            <rect x="15" y="20" width="50" height="10" rx="2" fill="var(--accent)" opacity="0.4"/>
+                            <rect x="15" y="40" width="50" height="60" rx="4" fill="rgba(74, 163, 255, 0.1)"/>
+                            <circle cx="40" cy="140" r="6" fill="#334766"/>
+                        </g>
+                        <g transform="translate(260, 40) scale(0.8)">
+                            <rect width="80" height="160" rx="16" fill="#1e2d4d" stroke="#334766" stroke-width="4"/>
+                        </g>
+                    </svg>
+                `
+            },
+            {
+                title: "Hệ thống quản lý phòng khám",
+                description: "Nền tảng đặt lịch và quản lý hồ sơ bệnh án điện tử cho chuỗi phòng khám đa chuyên khoa với 15+ chi nhánh.",
+                tags: ["Vue.js", "Node.js", "PostgreSQL", "GCP"],
+                result: "Giảm 40% thời gian xử lý",
+                thumb: `
+                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="30" width="280" height="160" rx="8" fill="#1e2d4d" stroke="#334766" stroke-width="2"/>
+                        <rect x="60" y="30" width="70" height="160" rx="8 0 0 8" fill="rgba(255,255,255,0.05)"/>
+                        <circle cx="95" cy="60" r="15" fill="var(--accent)" opacity="0.2"/>
+                        <rect x="140" y="50" width="180" height="110" rx="4" fill="rgba(74, 163, 255, 0.05)"/>
+                        <path d="M150 140 Q 180 110 210 140 T 270 140" stroke="var(--accent)" stroke-width="2" fill="none"/>
+                    </svg>
+                `
+            },
+            {
+                title: "Booking App Du lịch",
+                description: "Ứng dụng đặt tour và phòng khách sạn với tính năng gợi ý theo sở thích người dùng và thanh toán online.",
+                tags: ["Flutter", "Firebase", "Node.js", "Stripe"],
+                result: "98% hài lòng từ khách hàng",
+                thumb: `
+                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="150" y="20" width="100" height="200" rx="15" fill="#1e2d4d" stroke="#334766" stroke-width="3"/>
+                        <rect x="165" y="40" width="70" height="40" rx="5" fill="var(--accent)" opacity="0.3"/>
+                        <rect x="165" y="90" width="70" height="10" rx="2" fill="white" opacity="0.1"/>
+                        <rect x="165" y="105" width="50" height="10" rx="2" fill="white" opacity="0.1"/>
+                        <rect x="165" y="130" width="70" height="50" rx="5" fill="white" opacity="0.05"/>
+                    </svg>
+                `
+            }
+        ];
+
+        function renderProjects() {
+            const container = document.getElementById('project-container');
+            if (!container) return;
+
+            container.innerHTML = PROJECTS_DATA.map(proj => `
+                <div class="project-card reveal">
+                    <div class="project-thumb">${proj.thumb}</div>
+                    <div class="project-body">
+                        <h3>${proj.title}</h3>
+                        <p>${proj.description}</p>
+                        <div class="project-tags">
+                            ${proj.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="project-result">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            <span>${proj.result}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
+            
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll', () => {
+                window.scrollY > 100 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+                
+                // Scroll Top Button visibility
+                const scrollTopBtn = document.getElementById('scroll-top');
+                if (window.scrollY > 500) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            // Scroll Top Click Handler
+            document.getElementById('scroll-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 40;
+                const y = (e.clientY / window.innerHeight - 0.5) * 40;
+                const b1 = document.getElementById('blob-1');
+                const b2 = document.getElementById('blob-2');
+                if (b1) b1.style.transform = `translate(${x}px, ${y}px)`;
+                if (b2) b2.style.transform = `translate(${-x}px, ${-y}px)`;
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offset = 80;
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = target.getBoundingClientRect().top;
+                        window.scrollTo({ top: elementRect - bodyRect - offset, behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
