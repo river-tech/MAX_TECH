@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAX TECH | Giải pháp công nghệ cao cấp</title>
+    <!-- Boxicons for Premium Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         /* ==========================================================================
            1. GLOBAL DESIGN SYSTEM
@@ -170,7 +172,21 @@
         .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: white; }
         .service-card p { font-size: 1rem; margin-bottom: 2rem; color: var(--text-muted); line-height: 1.6; }
         .tech-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-        .pill { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; color: var(--accent); }
+        .pill { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid var(--glass-border); 
+            padding: 0.4rem 1rem; 
+            border-radius: 100px; 
+            font-size: 0.8rem; 
+            font-weight: 500; 
+            color: var(--accent); 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill i {
+            font-size: 1rem;
+        }
 
         /* Tech Stack Grid */
         .tech-grid {
@@ -222,6 +238,16 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tech-tag i {
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+        .tech-tag:hover i {
+            color: white;
         }
         .tech-tag:hover {
             background: var(--accent);
@@ -594,33 +620,18 @@
                     <p>Giải pháp công nghệ từ ý tưởng đến vận hành thực tế</p>
                 </div>
                 <div class="services-grid">
-                    <!-- Web & Mobile Application -->
+                    <!-- Full-stack Development -->
                     <div class="service-card reveal">
                         <div class="icon-box">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                         </div>
-                        <h3>Web & Mobile Application</h3>
-                        <p>Phát triển ứng dụng web và mobile với React, Next.js, React Native. Giao diện responsive, hiệu năng cao, trải nghiệm người dùng mượt mà.</p>
+                        <h3>Full-stack Development</h3>
+                        <p>Xây dựng giải pháp toàn diện từ Frontend đến Backend. Tối ưu hiệu suất, bảo mật và trải nghiệm người dùng mượt mà trên cả Web & Mobile.</p>
                         <div class="tech-pills">
-                            <span class="pill">React</span>
-                            <span class="pill">Next.js</span>
-                            <span class="pill">React Native</span>
-                            <span class="pill">TypeScript</span>
-                        </div>
-                    </div>
-
-                    <!-- Backend & API Development -->
-                    <div class="service-card reveal">
-                        <div class="icon-box">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                        </div>
-                        <h3>Backend & API Development</h3>
-                        <p>Xây dựng API RESTful và GraphQL với Node.js, Python. Kiến trúc microservices, xử lý dữ liệu lớn, bảo mật theo chuẩn quốc tế.</p>
-                        <div class="tech-pills">
-                            <span class="pill">Node.js</span>
-                            <span class="pill">Python</span>
-                            <span class="pill">PostgreSQL</span>
-                            <span class="pill">MongoDB</span>
+                            <span class="pill"><i class='bx bxl-react'></i> React / Next.js</span>
+                            <span class="pill"><i class='bx bxl-nodejs'></i> Node.js / Go</span>
+                            <span class="pill"><i class='bx bx-mobile-alt'></i> Mobile Apps</span>
+                            <span class="pill"><i class='bx bxl-postgresql'></i> PostgreSQL</span>
                         </div>
                     </div>
 
@@ -629,13 +640,28 @@
                         <div class="icon-box">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
                         </div>
-                        <h3>Cloud Infrastructure & DevOps</h3>
-                        <p>Triển khai và quản lý hạ tầng trên AWS, Google Cloud. CI/CD automation, monitoring, scaling tự động để hệ thống chạy ổn định 24/7.</p>
+                        <h3>Cloud & DevOps Solutions</h3>
+                        <p>Thiết kế hạ tầng chịu tải cao, triển khai CI/CD tự động trên AWS/GCP. Đảm bảo hệ thống vận hành ổn định 24/7 và có khả năng mở rộng.</p>
                         <div class="tech-pills">
-                            <span class="pill">AWS</span>
-                            <span class="pill">Docker</span>
-                            <span class="pill">Kubernetes</span>
-                            <span class="pill">Terraform</span>
+                            <span class="pill"><i class='bx bxl-aws'></i> AWS / GCP</span>
+                            <span class="pill"><i class='bx bxl-docker'></i> Docker / K8s</span>
+                            <span class="pill"><i class='bx bx-code-alt'></i> Terraform</span>
+                            <span class="pill"><i class='bx bx-sync'></i> CI/CD</span>
+                        </div>
+                    </div>
+
+                    <!-- UI/UX & Digital Branding -->
+                    <div class="service-card reveal">
+                        <div class="icon-box">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        </div>
+                        <h3>UI/UX & Product Design</h3>
+                        <p>Thiết kế giao diện hiện đại, tối ưu trải nghiệm người dùng và xây dựng bộ nhận diện thương hiệu số chuyên nghiệp cho doanh nghiệp.</p>
+                        <div class="tech-pills">
+                            <span class="pill"><i class='bx bxl-figma'></i> Figma</span>
+                            <span class="pill"><i class='bx bx-search-alt'></i> UI/UX Research</span>
+                            <span class="pill"><i class='bx bx-layer'></i> Prototyping</span>
+                            <span class="pill"><i class='bx bx-diamond'></i> Branding</span>
                         </div>
                     </div>
                 </div>
@@ -658,11 +684,11 @@
                             <h3>Frontend</h3>
                         </div>
                         <div class="tech-list">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Tailwind CSS</span>
+                            <span class="tech-tag"><i class='bx bxl-react'></i> React</span>
+                            <span class="tech-tag"><i class='bx bxl-javascript'></i> Next.js</span>
+                            <span class="tech-tag"><i class='bx bxl-vuejs'></i> Vue.js</span>
+                            <span class="tech-tag"><i class='bx bxl-typescript'></i> TypeScript</span>
+                            <span class="tech-tag"><i class='bx bxl-tailwind-css'></i> Tailwind CSS</span>
                         </div>
                     </div>
 
@@ -673,12 +699,12 @@
                             <h3>Backend</h3>
                         </div>
                         <div class="tech-list">
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Go</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag"><i class='bx bxl-nodejs'></i> Node.js</span>
+                            <span class="tech-tag"><i class='bx bxl-python'></i> Python</span>
+                            <span class="tech-tag"><i class='bx bxl-go-lang'></i> Go</span>
+                            <span class="tech-tag"><i class='bx bxl-postgresql'></i> PostgreSQL</span>
+                            <span class="tech-tag"><i class='bx bxl-mongodb'></i> MongoDB</span>
+                            <span class="tech-tag"><i class='bx bx-data'></i> Redis</span>
                         </div>
                     </div>
 
@@ -689,11 +715,11 @@
                             <h3>Cloud & DevOps</h3>
                         </div>
                         <div class="tech-list">
-                            <span class="tech-tag">AWS</span>
-                            <span class="tech-tag">Google Cloud</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Kubernetes</span>
-                            <span class="tech-tag">GitHub Actions</span>
+                            <span class="tech-tag"><i class='bx bxl-aws'></i> AWS</span>
+                            <span class="tech-tag"><i class='bx bxl-google-cloud'></i> Google Cloud</span>
+                            <span class="tech-tag"><i class='bx bxl-docker'></i> Docker</span>
+                            <span class="tech-tag"><i class='bx bxl-kubernetes'></i> Kubernetes</span>
+                            <span class="tech-tag"><i class='bx bxl-github'></i> GitHub Actions</span>
                         </div>
                     </div>
 
@@ -701,13 +727,13 @@
                     <div class="tech-card">
                         <div class="tech-card-header">
                             <span class="accent-line"></span>
-                            <h3>Mobile</h3>
+                            <h3>Mobile & Design</h3>
                         </div>
                         <div class="tech-list">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">iOS</span>
-                            <span class="tech-tag">Android</span>
+                            <span class="tech-tag"><i class='bx bxl-react'></i> React Native</span>
+                            <span class="tech-tag"><i class='bx bxl-flutter'></i> Flutter</span>
+                            <span class="tech-tag"><i class='bx bxl-figma'></i> Figma</span>
+                            <span class="tech-tag"><i class='bx bxl-adobe'></i> UI/UX</span>
                         </div>
                     </div>
                 </div>
@@ -817,83 +843,50 @@
         // Bạn có thể dễ dàng thêm dự án mới bằng cách thêm một object vào mảng này
         const PROJECTS_DATA = [
             {
-                title: "Hệ thống ERP Doanh nghiệp",
-                description: "Giải pháp quản trị nguồn lực toàn diện cho doanh nghiệp sản xuất, tích hợp quản lý kho, nhân sự và kế toán.",
-                tags: ["React", "NestJS", "PostgreSQL", "Docker"],
-                result: "Tối ưu 30% quy trình vận hành",
-                thumb: `
-                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="50" y="40" width="300" height="160" rx="10" fill="#1e2d4d" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
-                        <rect x="70" y="60" width="260" height="20" rx="4" fill="var(--accent)" opacity="0.2"/>
-                        <rect x="70" y="90" width="120" height="80" rx="4" fill="white" opacity="0.05"/>
-                        <rect x="200" y="90" width="130" height="80" rx="4" fill="white" opacity="0.05"/>
-                        <circle cx="265" cy="130" r="20" stroke="var(--accent)" stroke-width="2" opacity="0.4"/>
-                    </svg>
-                `
-            },
-            {
-                title: "Nền tảng E-commerce B2B",
-                description: "Hệ thống quản lý đơn hàng và kho vận cho doanh nghiệp phân phối với 500+ đại lý trên toàn quốc.",
+                title: "Nền tảng E-commerce Enterprise",
+                description: "Hệ thống bán lẻ quy mô lớn hỗ trợ đa kênh, tích hợp quản lý kho vận và thanh toán tự động cho doanh nghiệp.",
                 tags: ["Next.js", "Node.js", "PostgreSQL", "AWS"],
                 result: "Xử lý 100K+ đơn hàng/tháng",
                 thumb: `
                     <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="40" y="20" width="320" height="180" rx="12" fill="#1e2d4d" stroke="#334766" stroke-width="4"/>
-                        <path d="M160 200 L240 200 L260 220 L140 220 Z" fill="#1e2d4d"/>
-                        <rect x="60" y="40" width="80" height="60" rx="4" fill="rgba(74, 163, 255, 0.1)"/>
+                        <rect x="40" y="20" width="320" height="180" rx="12" fill="#0f1a2e" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+                        <rect x="60" y="40" width="80" height="60" rx="4" fill="var(--accent)" opacity="0.1"/>
                         <rect x="150" y="40" width="190" height="10" rx="2" fill="white" opacity="0.1"/>
+                        <rect x="150" y="60" width="120" height="10" rx="2" fill="white" opacity="0.05"/>
                         <rect x="60" y="110" width="280" height="60" rx="4" fill="rgba(74, 163, 255, 0.05)"/>
-                        <rect x="80" y="130" width="40" height="30" rx="2" fill="var(--accent)" opacity="0.4"/>
-                        <rect x="130" y="130" width="40" height="30" rx="2" fill="var(--accent)" opacity="0.4"/>
+                        <rect x="80" y="130" width="40" height="30" rx="2" fill="var(--accent)" opacity="0.3"/>
                     </svg>
                 `
             },
             {
-                title: "Ứng dụng Fintech",
-                description: "Mobile app quản lý tài chính cá nhân với tích hợp ngân hàng và phân tích chi tiêu thông minh AI-powered.",
+                title: "Ứng dụng Fintech & Ví điện tử",
+                description: "Nền tảng tài chính số với bảo mật đa lớp, tích hợp chuyển tiền nhanh và quản lý tài sản thông minh.",
                 tags: ["React Native", "Python", "MongoDB", "Docker"],
                 result: "50K+ người dùng hoạt động",
                 thumb: `
                     <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g transform="translate(160, 20)">
-                            <rect width="80" height="160" rx="16" fill="#1e2d4d" stroke="#334766" stroke-width="4"/>
-                            <rect x="15" y="20" width="50" height="10" rx="2" fill="var(--accent)" opacity="0.4"/>
+                            <rect width="80" height="160" rx="16" fill="#0f1a2e" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+                            <rect x="15" y="20" width="50" height="10" rx="2" fill="var(--accent)" opacity="0.2"/>
                             <rect x="15" y="40" width="50" height="60" rx="4" fill="rgba(74, 163, 255, 0.1)"/>
-                            <circle cx="40" cy="140" r="6" fill="#334766"/>
-                        </g>
-                        <g transform="translate(260, 40) scale(0.8)">
-                            <rect width="80" height="160" rx="16" fill="#1e2d4d" stroke="#334766" stroke-width="4"/>
+                            <circle cx="40" cy="140" r="6" fill="var(--accent)" opacity="0.3"/>
                         </g>
                     </svg>
                 `
             },
             {
-                title: "Hệ thống quản lý phòng khám",
-                description: "Nền tảng đặt lịch và quản lý hồ sơ bệnh án điện tử cho chuỗi phòng khám đa chuyên khoa với 15+ chi nhánh.",
-                tags: ["Vue.js", "Node.js", "PostgreSQL", "GCP"],
-                result: "Giảm 40% thời gian xử lý",
+                title: "Hệ thống Logistics Cloud",
+                description: "Số hóa quy trình vận chuyển và tự động hóa hạ tầng giúp tối ưu hóa chuỗi cung ứng trên quy mô toàn cầu.",
+                tags: ["AWS", "Docker", "Kubernetes", "Terraform"],
+                result: "Tiết kiệm 40% chi phí vận hành",
                 thumb: `
                     <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="60" y="30" width="280" height="160" rx="8" fill="#1e2d4d" stroke="#334766" stroke-width="2"/>
-                        <rect x="60" y="30" width="70" height="160" rx="8 0 0 8" fill="rgba(255,255,255,0.05)"/>
-                        <circle cx="95" cy="60" r="15" fill="var(--accent)" opacity="0.2"/>
-                        <rect x="140" y="50" width="180" height="110" rx="4" fill="rgba(74, 163, 255, 0.05)"/>
-                        <path d="M150 140 Q 180 110 210 140 T 270 140" stroke="var(--accent)" stroke-width="2" fill="none"/>
-                    </svg>
-                `
-            },
-            {
-                title: "Booking App Du lịch",
-                description: "Ứng dụng đặt tour và phòng khách sạn với tính năng gợi ý theo sở thích người dùng và thanh toán online.",
-                tags: ["Flutter", "Firebase", "Node.js", "Stripe"],
-                result: "98% hài lòng từ khách hàng",
-                thumb: `
-                    <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="150" y="20" width="100" height="200" rx="15" fill="#1e2d4d" stroke="#334766" stroke-width="3"/>
-                        <rect x="165" y="40" width="70" height="40" rx="5" fill="var(--accent)" opacity="0.3"/>
-                        <rect x="165" y="90" width="70" height="10" rx="2" fill="white" opacity="0.1"/>
-                        <rect x="165" y="105" width="50" height="10" rx="2" fill="white" opacity="0.1"/>
-                        <rect x="165" y="130" width="70" height="50" rx="5" fill="white" opacity="0.05"/>
+                        <rect x="60" y="30" width="280" height="160" rx="8" fill="#0f1a2e" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+                        <circle cx="100" cy="70" r="20" fill="var(--accent)" opacity="0.1"/>
+                        <path d="M140 70 L300 70" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+                        <rect x="140" y="100" width="160" height="8" rx="4" fill="white" opacity="0.1"/>
+                        <rect x="140" y="120" width="120" height="8" rx="4" fill="white" opacity="0.05"/>
+                        <path d="M60 150 L340 150" stroke="var(--accent)" stroke-width="1" opacity="0.2"/>
                     </svg>
                 `
             }
