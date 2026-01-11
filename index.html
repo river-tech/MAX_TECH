@@ -293,6 +293,265 @@
             line-height: 1;
         }
 
+        /* Pricing */
+        .pricing-section {
+            position: relative;
+            background: linear-gradient(160deg, #0b1630 0%, #0a1425 55%, #101c34 100%);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+        .pricing-section::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            left: -160px;
+            bottom: -140px;
+            background: radial-gradient(circle, rgba(74, 163, 255, 0.35) 0%, transparent 70%);
+            opacity: 0.7;
+        }
+        .pricing-section::after {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            right: -120px;
+            top: -120px;
+            background: radial-gradient(circle, rgba(217, 75, 61, 0.28) 0%, transparent 70%);
+            opacity: 0.6;
+        }
+        .pricing-section .title-group h2 {
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .pricing-section .title-group p {
+            color: var(--text-muted);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .pricing-card {
+            background: rgba(10, 18, 32, 0.85);
+            border-radius: 28px;
+            padding: 2.6rem 2.4rem;
+            box-shadow: 0 22px 50px rgba(3, 8, 18, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            backdrop-filter: var(--glass-blur);
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 28px 60px rgba(3, 8, 18, 0.6);
+        }
+        .pricing-card::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            right: -80px;
+            top: -80px;
+            background: radial-gradient(circle, var(--pricing-soft, rgba(74, 163, 255, 0.35)) 0%, transparent 70%);
+        }
+        .pricing-card::before {
+            content: "";
+            position: absolute;
+            left: 24px;
+            right: 24px;
+            top: 18px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--pricing-accent), transparent);
+            opacity: 0.9;
+        }
+        .pricing-card.pricing-blue {
+            --pricing-accent: #3f7dff;
+            --pricing-soft: rgba(63, 125, 255, 0.25);
+        }
+        .pricing-card.pricing-orange {
+            --pricing-accent: #ff8a3d;
+            --pricing-soft: rgba(255, 138, 61, 0.25);
+        }
+        .pricing-card.pricing-red {
+            --pricing-accent: #d94b3d;
+            --pricing-soft: rgba(217, 75, 61, 0.22);
+        }
+        .pricing-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.4rem;
+        }
+        .pricing-badge {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--pricing-accent);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .pricing-visual {
+            width: 120px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pricing-visual svg {
+            width: 100%;
+            height: auto;
+            color: var(--pricing-accent);
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.2));
+        }
+        .pricing-old {
+            color: var(--text-dim);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .pricing-countdown {
+            color: #ff7b7b;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
+        .pricing-price {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        .pricing-price::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 120px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .price-main {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--pricing-accent);
+            letter-spacing: -1px;
+        }
+        .price-currency {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--pricing-accent);
+            margin-bottom: 0.35rem;
+        }
+        .pricing-summary {
+            display: none;
+            color: #c9d4e3;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+        .pricing-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 2.2rem;
+        }
+        .pricing-list li {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            font-size: 0.95rem;
+            color: #c9d4e3;
+        }
+        .pricing-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--pricing-accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            flex: 0 0 20px;
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+            margin-top: 2px;
+        }
+        .pricing-check svg {
+            width: 12px;
+            height: 10px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .pricing-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .pricing-btn {
+            border-radius: 999px;
+            padding: 0.7rem 1.4rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.2px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+        .pricing-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .pricing-btn.primary {
+            background: var(--pricing-accent);
+            color: #ffffff;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+        .pricing-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+        }
+        .pricing-btn.ghost {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .pricing-btn.ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        @media (min-width: 1024px) {
+            .pricing-section.section-padding { padding: 70px 0; }
+            .pricing-section { min-height: 100vh; display: flex; align-items: center; }
+            .pricing-section .container { width: 100%; }
+            .pricing-grid { height: calc(100vh - 220px); align-items: stretch; }
+            .pricing-card { height: 100%; min-height: 0; }
+            .pricing-list { max-height: 240px; overflow: auto; padding-right: 0.5rem; }
+        }
+
         /* Projects */
         .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         .project-card { 
@@ -383,7 +642,7 @@
         @media (max-width: 1100px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
             .hero-visual { order: -1; max-width: 500px; margin: 0 auto; }
-            .services-grid, .project-grid, .why-columns { grid-template-columns: repeat(2, 1fr); }
+            .services-grid, .project-grid, .why-columns, .pricing-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
             :root { --nav-height: 60px; }
@@ -392,7 +651,12 @@
             .title-group { margin-bottom: 2rem; }
             .title-group h2 { font-size: 1.8rem; }
             .nav-links { display: none; }
-            .services-grid, .project-grid, .why-columns { grid-template-columns: 1fr; gap: 1.5rem; }
+            .services-grid, .project-grid, .why-columns, .pricing-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .pricing-card { padding: 2.2rem 2rem; }
+            .pricing-top { flex-direction: column; align-items: flex-start; }
+            .pricing-visual { align-self: flex-end; }
+            .pricing-summary { display: block; }
+            .pricing-list { display: none; }
             
             .hero { padding-top: 100px; gap: 2rem; }
             .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
@@ -766,7 +1030,319 @@
             </div>
         </section>
 
-        <!-- 6. PROJECTS -->
+        <!-- 6. PRICING -->
+        <section id="pricing" class="section-padding pricing-section">
+            <div class="container">
+                <div class="title-group reveal pricing-title">
+                    <h2>Gói dịch vụ</h2>
+                    <p>Chọn gói phù hợp với mục tiêu và ngân sách của bạn.</p>
+                </div>
+                <div class="pricing-grid">
+                    <article class="pricing-card pricing-blue reveal">
+                        <div class="pricing-top">
+                            <span class="pricing-badge">GÓI LANDING PAGE</span>
+                            <div class="pricing-visual" aria-hidden="true">
+                                <svg viewBox="0 0 180 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="16" y="18" width="100" height="64" rx="8" fill="currentColor" fill-opacity="0.08"/>
+                                    <rect x="26" y="28" width="80" height="44" rx="6" fill="currentColor" fill-opacity="0.16"/>
+                                    <rect x="120" y="34" width="36" height="62" rx="10" fill="currentColor" fill-opacity="0.08"/>
+                                    <rect x="128" y="44" width="20" height="32" rx="4" fill="currentColor" fill-opacity="0.16"/>
+                                    <rect x="50" y="88" width="52" height="10" rx="5" fill="currentColor" fill-opacity="0.18"/>
+                                    <circle cx="138" cy="40" r="3" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="pricing-old">Giá cũ: 4.000.000 đ</p>
+                        <p class="pricing-countdown">Khuyến mãi còn: 20 ngày 00:22:58</p>
+                        <div class="pricing-price">
+                            <span class="price-main">2.999.000</span>
+                            <span class="price-currency">đ</span>
+                        </div>
+                        <p class="pricing-summary">Landing page tối ưu chuyển đổi, thiết kế riêng theo nhận diện, kèm hosting và SSL.</p>
+                        <ul class="pricing-list">
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Phù hợp landing page</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Tặng kèm tên miền quốc tế và hosting 1GB SSD tốc độ cao</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Tặng kèm bảo mật SSL</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Kết nối đa dạng với các nền tảng</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Sử dụng được trên tất cả các thiết bị di động, máy tính</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Giao diện được thiết kế hoàn toàn riêng biệt và độc quyền</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hỗ trợ tất cả các tính năng đơn giản</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Bàn giao toàn bộ source code, không phát sinh phí thêm</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Bảo hành website 1 năm</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Khai báo website với Google khi hoàn thành</span>
+                            </li>
+                        </ul>
+                        <div class="pricing-actions">
+                            <a class="pricing-btn primary" href="#contact">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M7.5 8a2.5 2.5 0 1 1 5 0"/><path d="M11.5 8a2.5 2.5 0 1 0 5 0"/></svg>
+                                NHẬN KHUYẾN MÃI
+                            </a>
+                            <a class="pricing-btn ghost" href="#contact">
+                                <svg viewBox="0 0 24 24"><path d="M22 16.9v2a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.1 3h2a2 2 0 0 1 2 1.7l.5 2.5a2 2 0 0 1-.6 1.8l-1.3 1.3a16 16 0 0 0 6.6 6.6l1.3-1.3a2 2 0 0 1 1.8-.6l2.5.5a2 2 0 0 1 1.7 2z"/></svg>
+                                TƯ VẤN MIỄN PHÍ
+                            </a>
+                        </div>
+                    </article>
+                    <article class="pricing-card pricing-orange reveal">
+                        <div class="pricing-top">
+                            <span class="pricing-badge">GÓI WEB THƯỜNG</span>
+                            <div class="pricing-visual" aria-hidden="true">
+                                <svg viewBox="0 0 180 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="16" y="18" width="100" height="64" rx="8" fill="currentColor" fill-opacity="0.08"/>
+                                    <rect x="26" y="28" width="80" height="44" rx="6" fill="currentColor" fill-opacity="0.16"/>
+                                    <rect x="120" y="34" width="36" height="62" rx="10" fill="currentColor" fill-opacity="0.08"/>
+                                    <rect x="128" y="44" width="20" height="32" rx="4" fill="currentColor" fill-opacity="0.16"/>
+                                    <rect x="50" y="88" width="52" height="10" rx="5" fill="currentColor" fill-opacity="0.18"/>
+                                    <circle cx="138" cy="40" r="3" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="pricing-old">Giá cũ: 7.000.000 đ</p>
+                        <p class="pricing-countdown">Khuyến mãi còn: 20 ngày 00:22:58</p>
+                        <div class="pricing-price">
+                            <span class="price-main">4.999.000</span>
+                            <span class="price-currency">đ</span>
+                        </div>
+                        <p class="pricing-summary">Website bán hàng tiêu chuẩn, có tích hợp thanh toán, hosting 5GB SSD, bảo hành 2 năm.</p>
+                        <ul class="pricing-list">
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Phù hợp cho các loại website bán hàng</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Tặng kèm tên miền quốc tế và hosting 5GB SSD tốc độ cao</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Tặng kèm bảo mật SSL</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Kết nối các hệ thống thanh toán trực tuyến</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hoạt động mượt mà trên các thiết bị máy tính, di động</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Shop bán hàng tự động vận hành, tiết kiệm chi phí</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Tốc độ truy cập cao, load web trong 3s</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Bàn giao toàn bộ source code, không phát sinh phí thêm</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Bảo hành website 2 năm</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Khai báo website với Google khi hoàn thành</span>
+                            </li>
+                        </ul>
+                        <div class="pricing-actions">
+                            <a class="pricing-btn primary" href="#contact">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M7.5 8a2.5 2.5 0 1 1 5 0"/><path d="M11.5 8a2.5 2.5 0 1 0 5 0"/></svg>
+                                NHẬN KHUYẾN MÃI
+                            </a>
+                            <a class="pricing-btn ghost" href="#contact">
+                                <svg viewBox="0 0 24 24"><path d="M22 16.9v2a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.1 3h2a2 2 0 0 1 2 1.7l.5 2.5a2 2 0 0 1-.6 1.8l-1.3 1.3a16 16 0 0 0 6.6 6.6l1.3-1.3a2 2 0 0 1 1.8-.6l2.5.5a2 2 0 0 1 1.7 2z"/></svg>
+                                TƯ VẤN MIỄN PHÍ
+                            </a>
+                        </div>
+                    </article>
+                    <article class="pricing-card pricing-red reveal">
+                        <div class="pricing-top">
+                            <span class="pricing-badge">GÓI WEB CAO CẤP</span>
+                            <div class="pricing-visual" aria-hidden="true">
+                                <svg viewBox="0 0 180 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="16" y="18" width="100" height="64" rx="8" fill="currentColor" fill-opacity="0.08"/>
+                                    <rect x="26" y="28" width="80" height="44" rx="6" fill="currentColor" fill-opacity="0.16"/>
+                                    <rect x="120" y="34" width="36" height="62" rx="10" fill="currentColor" fill-opacity="0.08"/>
+                                    <rect x="128" y="44" width="20" height="32" rx="4" fill="currentColor" fill-opacity="0.16"/>
+                                    <rect x="50" y="88" width="52" height="10" rx="5" fill="currentColor" fill-opacity="0.18"/>
+                                    <circle cx="138" cy="40" r="3" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="pricing-old">Giá cũ: 8.000.000 đ</p>
+                        <p class="pricing-countdown">Khuyến mãi còn: 20 ngày 00:22:58</p>
+                        <div class="pricing-price">
+                            <span class="price-main">6.999.000</span>
+                            <span class="price-currency">đ</span>
+                        </div>
+                        <p class="pricing-summary">Website cao cấp tuỳ biến, đa ngôn ngữ, thanh toán online, bảo hành vĩnh viễn.</p>
+                        <ul class="pricing-list">
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Phù hợp tất cả các loại website</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Tặng kèm tên miền quốc tế và hosting 10GB SSD tốc độ cao</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Kết nối đa dạng với các nền tảng</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Sử dụng được trên tất cả các thiết bị di động, máy tính</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Giao diện được thiết kế hoàn toàn riêng biệt và độc quyền</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hỗ trợ tính năng song ngữ</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hỗ trợ tính năng thanh toán online</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hỗ trợ tính năng Custom field</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Bàn giao toàn bộ source code, không phát sinh phí thêm</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Bảo hành website vĩnh viễn</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Khai báo website với Google khi hoàn thành</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hỗ trợ cài đặt Google Analytics &amp; Google Search Console</span>
+                            </li>
+                            <li>
+                                <span class="pricing-check" aria-hidden="true">
+                                    <svg viewBox="0 0 16 12"><path d="M1.5 6.5l4 4L14.5 1.5"/></svg>
+                                </span>
+                                <span>Hỗ trợ setup chiến dịch Google ADS</span>
+                            </li>
+                        </ul>
+                        <div class="pricing-actions">
+                            <a class="pricing-btn primary" href="#contact">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M7.5 8a2.5 2.5 0 1 1 5 0"/><path d="M11.5 8a2.5 2.5 0 1 0 5 0"/></svg>
+                                NHẬN KHUYẾN MÃI
+                            </a>
+                            <a class="pricing-btn ghost" href="#contact">
+                                <svg viewBox="0 0 24 24"><path d="M22 16.9v2a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.1 3h2a2 2 0 0 1 2 1.7l.5 2.5a2 2 0 0 1-.6 1.8l-1.3 1.3a16 16 0 0 0 6.6 6.6l1.3-1.3a2 2 0 0 1 1.8-.6l2.5.5a2 2 0 0 1 1.7 2z"/></svg>
+                                TƯ VẤN MIỄN PHÍ
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. PROJECTS -->
         <section id="projects" class="section-padding">
             <div class="container">
                 <div class="title-group reveal">
@@ -778,12 +1354,12 @@
             </div>
         </section>
 
-        <!-- 7. CONTACT -->
+        <!-- 8. CONTACT -->
         <section id="contact" class="container section-padding">
             <div class="cta-wrap reveal">
                 <h2>Bắt đầu dự án của bạn</h2>
                 <p>Hãy cùng MAX TECH hiện thực hóa giải pháp của bạn ngay hôm nay.</p>
-                <a href="https://www.facebook.com/profile.php?id=61585726120612" target="_blank" class="btn btn-primary cta-btn btn-contact-loop" style="padding: 1.2rem 3rem;">Đặt lịch tư vấn miễn phí</a>
+                <a href="tel:+84935271790" class="btn btn-primary cta-btn btn-contact-loop" style="padding: 1.2rem 3rem;">Đặt lịch tư vấn miễn phí</a>
                 <div class="contact-info">
                     <a href="mailto:maxtechfreelance0101@gmail.com" class="contact-item" style="text-decoration: none;">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -798,7 +1374,7 @@
         </section>
     </main>
 
-    <!-- 8. FOOTER -->
+    <!-- 9. FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-main">
