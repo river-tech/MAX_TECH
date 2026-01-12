@@ -659,7 +659,9 @@ nav .container {
     margin-top: auto;
     display: flex;
     gap: 0.8rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .pricing-btn {
